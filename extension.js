@@ -1,6 +1,6 @@
 const vscode = require('vscode');
 
-// Daftar kalimat hinaan (bisa kamu tambah sendiri sekreatif mungkin)
+//daftar kalimat hinaan
 const daftarHinaan = [
     "lu tolol apa gimana? Bot juga lebih pinter dari lu.",
     "otak lu di kepala atau di pantat? Error semua itu.",
@@ -18,22 +18,22 @@ const daftarHinaan = [
 function activate(context) {
     console.log('Ekstensi "Hinaan Simulator" aktif!');
 
-    // Event listener: Berjalan setiap kali ada perubahan pada file atau error diagnostics
+    //event listener: berjalan setiap kali ada perubahan pada file atau error diagnostics
     let diagnosticListener = vscode.languages.onDidChangeDiagnostics((e) => {
-        // Cek apakah ada error baru di dokumen yang sedang aktif
+        // cek apakah ada error baru di dokumen yang sedang aktif
         const activeEditor = vscode.window.activeTextEditor;
         if (activeEditor) {
             const uri = activeEditor.document.uri;
             const diagnostics = vscode.languages.getDiagnostics(uri);
 
-            // Cari apakah ada diagnostic yang tipenya 'Error'
+            //cari apakah ada diagnostic yang tipenya 'Error'
             const punyaError = diagnostics.some(d => d.severity === vscode.DiagnosticSeverity.Error);
 
             if (punyaError) {
-                // Ambil hinaan secara acak
+                //ambil hinaan secara acak
                 const randomHinaan = daftarHinaan[Math.floor(Math.random() * daftarHinaan.length)];
                 
-                // Munculkan sebagai pesan peringatan di pojok kanan bawah VS Code
+                //munculkan sebagai pesan peringatan di pojok kanan bawah VS Code
                 vscode.window.showErrorMessage(`🚨 [System]: ${randomHinaan}`);
             }
         }
